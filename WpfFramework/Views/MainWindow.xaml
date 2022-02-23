@@ -2,6 +2,8 @@
     x:Class="WpfFramework.MainWindow"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
+    xmlns:behaviors="clr-namespace:WpfFramework.Behaviors"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:WpfFramework"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -18,7 +20,18 @@
                 <Separator />
                 <MenuItem Header="_Exit" />
             </MenuItem>
+            <MenuItem Header="_Master">
+                <MenuItem Header="_Code Management" />
+                <MenuItem
+                    Command="{Binding NavigateCommand}"
+                    CommandParameter="Views/CustomerPage.xaml"
+                    Header="C_ustomer Management" />
+            </MenuItem>
         </Menu>
-        <Frame />
+        <Frame NavigationUIVisibility="Hidden">
+            <b:Interaction.Behaviors>
+                <behaviors:FrameBehavior NavigationSource="{Binding NavigationSource, Mode=TwoWay}" />
+            </b:Interaction.Behaviors>
+        </Frame>
     </DockPanel>
 </Window>
