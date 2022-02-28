@@ -3,7 +3,12 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.32126.317
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WpfFramework", "WpfFramework\WpfFramework.csproj", "{25B60E88-4729-414F-83C2-6A5E5727B43A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WpfFramework", "WpfFramework\WpfFramework.csproj", "{25B60E88-4729-414F-83C2-6A5E5727B43A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CodeSnipeet", "CodeSnipeet", "{429C9186-F23B-4BDF-92F6-2C3E0180F00F}"
+	ProjectSection(SolutionItems) = preProject
+		propp.snippet = propp.snippet
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
