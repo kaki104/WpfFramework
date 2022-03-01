@@ -28,10 +28,30 @@
                     Header="C_ustomer Management" />
             </MenuItem>
         </Menu>
-        <Frame NavigationUIVisibility="Hidden">
-            <b:Interaction.Behaviors>
-                <behaviors:FrameBehavior NavigationSource="{Binding NavigationSource, Mode=TwoWay}" />
-            </b:Interaction.Behaviors>
-        </Frame>
+        <Grid>
+            <Frame NavigationUIVisibility="Hidden">
+                <b:Interaction.Behaviors>
+                    <behaviors:FrameBehavior NavigationSource="{Binding NavigationSource, Mode=TwoWay}" />
+                </b:Interaction.Behaviors>
+            </Frame>
+            <Border Background="#66000000" Visibility="{Binding IsBusy, Converter={StaticResource BoolToVisibilityConverter}}">
+                <Border
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Background="White"
+                    CornerRadius="5">
+                    <StackPanel Width="100" Margin="10">
+                        <ProgressBar Height="10" IsIndeterminate="True" />
+                        <TextBlock
+                            Margin="0,5,0,0"
+                            HorizontalAlignment="Center"
+                            Text="Busy..." />
+                    </StackPanel>
+                    <Border.Effect>
+                        <DropShadowEffect />
+                    </Border.Effect>
+                </Border>
+            </Border>
+        </Grid>
     </DockPanel>
 </Window>

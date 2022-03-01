@@ -1,0 +1,13 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:converters="clr-namespace:WpfFramework.Converters">
+
+    <!--  true이면 보이고, false이면 않보임  -->
+    <converters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
+    <!--  true이면 않보이고, false이면 보임  -->
+    <converters:BoolToVisibilityConverter
+        x:Key="BoolToVisibilityReverseConverter"
+        FalseValue="Visible"
+        TrueValue="Collapsed" />
+</ResourceDictionary>
