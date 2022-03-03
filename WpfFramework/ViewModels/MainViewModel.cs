@@ -43,6 +43,26 @@ namespace WpfFramework.ViewModels
             set { SetProperty(ref _isBusy, value); }
         }
 
+        private bool _showLayerPopup;
+        /// <summary>
+        /// 레이어 팝업 출력여부
+        /// </summary>
+        public bool ShowLayerPopup
+        {
+            get { return _showLayerPopup; }
+            set { SetProperty(ref _showLayerPopup, value); }
+        }
+
+        private string _controlName;
+        /// <summary>
+        /// 레이어 팝업 내부 컨트롤 이름
+        /// </summary>
+        public string ControlName
+        {
+            get { return _controlName; }
+            set { SetProperty(ref _controlName, value); }
+        }
+
         /// <summary>
         /// 생성자
         /// </summary>
@@ -62,6 +82,14 @@ namespace WpfFramework.ViewModels
             WeakReferenceMessenger.Default.Register<NavigationMessage>(this, OnNavigationMessage);
             //BusyMessage 수신 등록
             WeakReferenceMessenger.Default.Register<BusyMessage>(this, OnBusyMessage);
+            //LayerPopupMessage 수신 등록
+            WeakReferenceMessenger.Default.Register<LayerPopupMessage>(this, OnLayerPopupMessage);
+        }
+
+        private void OnLayerPopupMessage(object recipient, LayerPopupMessage message)
+        {
+            ShowLayerPopup = message.Value;
+            ControlName = message.ControlName;
         }
 
         /// <summary>

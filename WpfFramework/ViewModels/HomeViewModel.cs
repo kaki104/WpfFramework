@@ -1,5 +1,6 @@
 ﻿using Microsoft.Toolkit.Mvvm.Input;
 using Microsoft.Toolkit.Mvvm.Messaging;
+using System;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using WpfFramework.Bases;
@@ -7,6 +8,9 @@ using WpfFramework.Models;
 
 namespace WpfFramework.ViewModels
 {
+    /// <summary>
+    /// 홈뷰모델
+    /// </summary>
     public class HomeViewModel : ViewModelBase
     {
         public static int Count { get; set; }
@@ -15,6 +19,10 @@ namespace WpfFramework.ViewModels
         /// Busy 테스트 커맨드
         /// </summary>
         public ICommand BusyTestCommand { get; set; }
+        /// <summary>
+        /// LayerPopup 테스트 커맨드
+        /// </summary>
+        public ICommand LayerPopupTestCommand { get; set; }
 
         /// <summary>
         /// 생성자
@@ -29,6 +37,12 @@ namespace WpfFramework.ViewModels
         private void Init()
         {
             BusyTestCommand = new AsyncRelayCommand(OnBusyTestAsync);
+            LayerPopupTestCommand = new RelayCommand(OnLayerPopupTest);
+        }
+
+        private void OnLayerPopupTest()
+        {
+            WeakReferenceMessenger.Default.Send(new LayerPopupMessage(true) { ControlName = "AboutControl" });
         }
 
         /// <summary>

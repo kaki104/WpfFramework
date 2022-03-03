@@ -23,6 +23,7 @@
 
         <StackPanel Grid.Column="1">
             <Button Command="{Binding BusyTestCommand}" Content="Busy Test" />
+            <Button Command="{Binding LayerPopupTestCommand}" Content="Layer Popup Test" />
         </StackPanel>
     </Grid>
 </Page>

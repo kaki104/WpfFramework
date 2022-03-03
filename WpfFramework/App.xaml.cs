@@ -1,6 +1,8 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using System;
+using System.Diagnostics;
 using System.Windows;
+using WpfFramework.Controls;
 using WpfFramework.ViewModels;
 
 namespace WpfFramework
@@ -38,6 +40,8 @@ namespace WpfFramework
             services.AddTransient(typeof(HomeViewModel));
             services.AddTransient(typeof(CustomerViewModel));
 
+            //Control 등록
+            services.AddTransient(typeof(AboutControl));
             return services.BuildServiceProvider();
         }
     }
