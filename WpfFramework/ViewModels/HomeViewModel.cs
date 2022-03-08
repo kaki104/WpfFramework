@@ -13,7 +13,20 @@ namespace WpfFramework.ViewModels
     /// </summary>
     public class HomeViewModel : ViewModelBase
     {
+        /// <summary>
+        /// 네비게이션 카운트 출력용 - 삭제 가능
+        /// </summary>
         public static int Count { get; set; }
+
+        private decimal _price;
+        /// <summary>
+        /// 가격
+        /// </summary>
+        public decimal Price
+        {
+            get { return _price; }
+            set { SetProperty(ref _price, value); }
+        }
 
         /// <summary>
         /// Busy 테스트 커맨드
@@ -38,6 +51,8 @@ namespace WpfFramework.ViewModels
         {
             BusyTestCommand = new AsyncRelayCommand(OnBusyTestAsync);
             LayerPopupTestCommand = new RelayCommand(OnLayerPopupTest);
+
+            Price = 12345678;
         }
 
         private void OnLayerPopupTest()
