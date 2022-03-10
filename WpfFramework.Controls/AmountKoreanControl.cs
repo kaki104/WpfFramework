@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Diagnostics;
-using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
 using System.Windows.Input;
 
 namespace WpfFramework.Controls
@@ -58,14 +55,14 @@ namespace WpfFramework.Controls
         private void AmountTextBox_PreviewKeyDown(object sender, KeyEventArgs e)
         {
             bool isDigit = false;
-            switch((int)e.Key)
+            switch ((int)e.Key)
             {
                 //D0~D9 NumPad0 ~ 9 74-83
                 case int n when ((34 <= n && 43 >= n) || (74 <= n && 83 >= n)):
                     isDigit = true;
                     break;
             }
-            if (!(isDigit || e.Key == Key.Back 
+            if (!(isDigit || e.Key == Key.Back
                 || e.Key == Key.Left || e.Key == Key.Right))
             {
                 e.Handled = true;
@@ -79,7 +76,7 @@ namespace WpfFramework.Controls
         private void AmountTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             //중복실행방지
-            if(_isWork)
+            if (_isWork)
             {
                 return;
             }
@@ -87,7 +84,7 @@ namespace WpfFramework.Controls
 
             //전처리
             var numberTextOnly = _amountTextBox.Text.Trim().Replace(",", "");
-            if(decimal.TryParse(numberTextOnly, out decimal decimalValue))
+            if (decimal.TryParse(numberTextOnly, out decimal decimalValue))
             {
                 DecimalToFormatString(decimalValue);
             }
@@ -106,7 +103,7 @@ namespace WpfFramework.Controls
         private void DecimalToFormatString(decimal decimalValue)
         {
             //DP 변경 이벤트로 호출되는 경우 초기화 전에 들어오는 것 방지
-            if(_amountTextBox == null)
+            if (_amountTextBox == null)
             {
                 return;
             }
@@ -127,10 +124,11 @@ namespace WpfFramework.Controls
         ~AmountKoreanControl()
         {
             _amountTextBox.TextChanged -= AmountTextBox_TextChanged;
+            _amountTextBox.PreviewKeyDown -= AmountTextBox_PreviewKeyDown;
         }
 
         /// <summary>
-        /// 숫자를 한글로
+        /// 숫자를 한글로 - 이 부분은 따로 Utility로 빼서 사용하는 것이 더 좋을듯
         /// </summary>
         /// <param name="lngNumber"></param>
         /// <returns></returns>
@@ -194,7 +192,7 @@ namespace WpfFramework.Controls
         /// Amount DP
         /// </summary>
         public static readonly DependencyProperty AmountProperty =
-            DependencyProperty.Register(nameof(Amount), typeof(decimal), typeof(AmountKoreanControl), 
+            DependencyProperty.Register(nameof(Amount), typeof(decimal), typeof(AmountKoreanControl),
                 new PropertyMetadata(decimal.Zero, AmountChanged));
 
         private static void AmountChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
@@ -205,7 +203,7 @@ namespace WpfFramework.Controls
 
         private void SetAmount()
         {
-            if(_isWork)
+            if (_isWork)
             {
                 return;
             }
