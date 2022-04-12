@@ -22,11 +22,16 @@
                 Content="Back" />
         </StackPanel>
         <StackPanel
-            Grid.Row="1"
+            Grid.Row="0"
             HorizontalAlignment="Center"
-            VerticalAlignment="Center">
+            VerticalAlignment="Center"
+            Orientation="Horizontal">
             <TextBlock FontSize="20" Text="{Binding Title}" />
-            <TextBlock Text="{Binding Message}" />
+            <TextBlock Text="{Binding Message}" Margin="10,0"
+                       VerticalAlignment="Bottom"/>
         </StackPanel>
+        <DataGrid Grid.Row="1" ItemsSource="{Binding Customers}"
+                  CanUserAddRows="False"/>
+
     </Grid>
 </Page>
