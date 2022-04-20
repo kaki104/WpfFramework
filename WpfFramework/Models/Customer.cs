@@ -39,10 +39,15 @@ namespace WpfFramework.Models
         private string _country;
         [ObservableProperty]
         [MaxLength(24)]
+        [Phone]
         private string _phone;
         [ObservableProperty]
         [MaxLength(24)]
+        [Phone]
         private string _fax;
-
+        [ObservableProperty]
+        [MaxLength(24)]
+        [EmailAddress]
+        private string _email;
     }
 }
