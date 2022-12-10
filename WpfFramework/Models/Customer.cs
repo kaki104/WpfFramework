@@ -45,9 +45,5 @@ namespace WpfFramework.Models
         [MaxLength(24)]
         [Phone]
         private string _fax;
-        [ObservableProperty]
-        [MaxLength(24)]
-        [EmailAddress]
-        private string _email;
     }
 }
