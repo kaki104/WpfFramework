@@ -1,6 +1,5 @@
-﻿using Microsoft.Toolkit.Mvvm.Input;
-using Microsoft.Toolkit.Mvvm.Messaging;
-using System;
+﻿using CommunityToolkit.Mvvm.Input;
+using CommunityToolkit.Mvvm.Messaging;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using WpfFramework.Bases;

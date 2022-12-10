@@ -1,14 +1,11 @@
-﻿using Microsoft.Toolkit.Mvvm.ComponentModel;
-using Microsoft.Toolkit.Mvvm.Input;
-using Microsoft.Toolkit.Mvvm.Messaging;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
+using CommunityToolkit.Mvvm.Messaging;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data;
-using System.Data.SqlClient;
-using System.Diagnostics;
 using System.Linq;
 using System.Windows;
-using System.Windows.Input;
 using WpfFramework.Bases;
 using WpfFramework.Models;
 using WpfFramework.Services;
@@ -25,7 +22,7 @@ namespace WpfFramework.ViewModels
         [ObservableProperty]
         private Customer _selectedCustomer;
 
-        [ObservableProperty] 
+        [ObservableProperty]
         private string _errorMessage;
 
         public IRelayCommand SaveCommand { get; set; }
@@ -40,8 +37,8 @@ namespace WpfFramework.ViewModels
         {
             Title = "Customer";
 
-            SaveCommand = new RelayCommand(Save, 
-                            () => Customers != null 
+            SaveCommand = new RelayCommand(Save,
+                            () => Customers != null
                             && Customers.Any(c => string.IsNullOrWhiteSpace(c?.CustomerID)));
 
             PropertyChanging += CustomerViewModel_PropertyChanging;
@@ -53,7 +50,7 @@ namespace WpfFramework.ViewModels
             switch (e.PropertyName)
             {
                 case nameof(SelectedCustomer):
-                    if(SelectedCustomer != null)
+                    if (SelectedCustomer != null)
                     {
                         SelectedCustomer.ErrorsChanged -= SelectedCustomer_ErrorsChanged;
                         ErrorMessage = string.Empty;
@@ -64,7 +61,7 @@ namespace WpfFramework.ViewModels
 
         private void CustomerViewModel_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
-            switch(e.PropertyName)
+            switch (e.PropertyName)
             {
                 case nameof(SelectedCustomer):
                     if (SelectedCustomer != null)
@@ -83,7 +80,7 @@ namespace WpfFramework.ViewModels
 
         private void SetErrorMessage(Customer customer)
         {
-            if(customer == null)
+            if (customer == null)
             {
                 return;
             }
@@ -94,7 +91,7 @@ namespace WpfFramework.ViewModels
         /// <summary>
         /// AddCommand
         /// </summary>
-        [ICommand]
+        [RelayCommand]
         private void Add()
         {
             var newCustomer = new Customer();
@@ -110,7 +107,7 @@ namespace WpfFramework.ViewModels
         /// <summary>
         /// BackCommand
         /// </summary>
-        [ICommand]
+        [RelayCommand]
         private void Back()
         {
             WeakReferenceMessenger.Default.Send(new NavigationMessage("GoBack"));

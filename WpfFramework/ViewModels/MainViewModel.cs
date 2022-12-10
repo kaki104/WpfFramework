@@ -1,6 +1,5 @@
-﻿using Microsoft.Toolkit.Mvvm.Input;
-using Microsoft.Toolkit.Mvvm.Messaging;
-using System;
+﻿using CommunityToolkit.Mvvm.Input;
+using CommunityToolkit.Mvvm.Messaging;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Input;
@@ -99,10 +98,10 @@ namespace WpfFramework.ViewModels
         /// <param name="message"></param>
         private void OnBusyMessage(object recipient, BusyMessage message)
         {
-            if(message.Value)
+            if (message.Value)
             {
                 var existBusy = _busys.FirstOrDefault(b => b.BusyId == message.BusyId);
-                if(existBusy != null)
+                if (existBusy != null)
                 {
                     //이미 추가된 녀석이기 때문에 추가하지 않음
                     return;
@@ -112,7 +111,7 @@ namespace WpfFramework.ViewModels
             else
             {
                 var existBusy = _busys.FirstOrDefault(b => b.BusyId == message.BusyId);
-                if(existBusy == null)
+                if (existBusy == null)
                 {
                     //없기 때문에 나감
                     return;

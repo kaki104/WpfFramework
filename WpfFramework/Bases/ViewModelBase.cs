@@ -1,4 +1,4 @@
-﻿using Microsoft.Toolkit.Mvvm.ComponentModel;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
 using WpfFramework.Interfaces;
 
 namespace WpfFramework.Bases
@@ -25,7 +25,7 @@ namespace WpfFramework.Bases
         public string Message
         {
             get { return _message; }
-            set { SetProperty(ref _message, value) ; }
+            set { SetProperty(ref _message, value); }
         }
         /// <summary>
         /// 네비게이션 완료시

@@ -1,4 +1,4 @@
-﻿using Microsoft.Toolkit.Mvvm.ComponentModel;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace WpfFramework.Models
@@ -8,14 +8,22 @@ namespace WpfFramework.Models
     /// </summary>
     public partial class Customer : ObservableValidator
     {
-        [ObservableProperty]
+        private string _customerID;
         [Required]
         [MaxLength(5)]
-        private string _customerID;
-        [ObservableProperty]
+        public string CustomerID
+        {
+            get { return _customerID; }
+            set { SetProperty(ref _customerID, value, true); }
+        }
+        private string _companyName;
         [Required]
         [MaxLength(40)]
-        private string _companyName;
+        public string CompanyName
+        {
+            get { return _companyName; }
+            set { SetProperty(ref _companyName, value, true); }
+        }
         [ObservableProperty]
         [MaxLength(30)]
         private string _contactName;
