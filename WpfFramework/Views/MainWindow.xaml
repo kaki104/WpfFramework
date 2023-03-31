@@ -63,8 +63,10 @@
                     </Border.Effect>
                     <ContentControl Width="400" MinHeight="200">
                         <b:Interaction.Behaviors>
-                            <behaviors:ContentControlBehavior ControlName="{Binding ControlName}"
-                                                              ShowLayerPopup="{Binding ShowLayerPopup}"/>
+                            <behaviors:ContentControlBehavior
+                                ControlName="{Binding ControlName}"
+                                ControlParameter="{Binding ControlParameter}"
+                                ShowLayerPopup="{Binding ShowLayerPopup}" />
                         </b:Interaction.Behaviors>
                     </ContentControl>
                 </Border>

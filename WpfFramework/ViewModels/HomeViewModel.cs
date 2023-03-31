@@ -56,7 +56,11 @@ namespace WpfFramework.ViewModels
 
         private void OnLayerPopupTest()
         {
-            WeakReferenceMessenger.Default.Send(new LayerPopupMessage(true) { ControlName = "AboutControl" });
+            WeakReferenceMessenger.Default.Send(new LayerPopupMessage(true) 
+            { 
+                ControlName = "AboutControl",
+                Parameter = "kaki104 parameter"
+            });
         }
 
         /// <summary>

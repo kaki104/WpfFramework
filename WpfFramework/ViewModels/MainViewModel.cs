@@ -61,7 +61,15 @@ namespace WpfFramework.ViewModels
             get { return _controlName; }
             set { SetProperty(ref _controlName, value); }
         }
-
+        private object _controlParameter;
+        /// <summary>
+        /// 컨트롤 파라메터
+        /// </summary>
+        public object ControlParameter
+        {
+            get { return _controlParameter; }
+            set { SetProperty(ref _controlParameter, value); }
+        }
         /// <summary>
         /// 생성자
         /// </summary>
@@ -88,6 +96,8 @@ namespace WpfFramework.ViewModels
         private void OnLayerPopupMessage(object recipient, LayerPopupMessage message)
         {
             ShowLayerPopup = message.Value;
+            //순서에 주의
+            ControlParameter = message.Parameter;
             ControlName = message.ControlName;
         }
 

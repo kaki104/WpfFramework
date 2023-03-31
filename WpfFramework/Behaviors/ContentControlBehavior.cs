@@ -2,6 +2,7 @@
 using System;
 using System.Windows;
 using System.Windows.Controls;
+using WpfFramework.Controls;
 
 namespace WpfFramework.Behaviors
 {
@@ -12,8 +13,8 @@ namespace WpfFramework.Behaviors
     {
         public string ControlName
         {
-            get { return (string)GetValue(ControlNameProperty); }
-            set { SetValue(ControlNameProperty, value); }
+            get => (string)GetValue(ControlNameProperty);
+            set => SetValue(ControlNameProperty, value);
         }
 
         /// <summary>
@@ -24,14 +25,13 @@ namespace WpfFramework.Behaviors
 
         private static void ControlNameChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            var behavior = (ContentControlBehavior)d;
+            ContentControlBehavior behavior = (ContentControlBehavior)d;
             behavior.ResolveControl();
         }
 
         /// <summary>
         /// ControlName을 이용해서 컨트롤 인스턴스 시켜서 사용
         /// </summary>
-        /// <exception cref="NotImplementedException"></exception>
         private void ResolveControl()
         {
             if (string.IsNullOrEmpty(ControlName))
@@ -43,20 +43,25 @@ namespace WpfFramework.Behaviors
                 //GetType을 이용하기 위해서 AssemblyQualifiedName이 필요합니다.
                 //예) typeof(AboutControl).AssemblyQualifiedName
                 //다른 클래스라이브러리에 있는 컨트롤도 이름만 알면 만들 수 있습니다.
-                var type = Type.GetType($"WpfFramework.Controls.{ControlName}, WpfFramework, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null");
+                Type type = Type.GetType($"WpfFramework.Controls.{ControlName}, WpfFramework, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null");
                 if (type == null)
                 {
                     return;
                 }
-                var control = App.Current.Services.GetService(type);
+                object control = App.Current.Services.GetService(type);
+                //생성된 컨트롤에 파라메터 프로퍼티에 값 입력
+                if(control is ISupportParameter parameterControl)
+                {
+                    parameterControl.Parameter = ControlParameter;
+                }
                 AssociatedObject.Content = control;
             }
         }
 
         public bool ShowLayerPopup
         {
-            get { return (bool)GetValue(ShowLayerPopupProperty); }
-            set { SetValue(ShowLayerPopupProperty, value); }
+            get => (bool)GetValue(ShowLayerPopupProperty);
+            set => SetValue(ShowLayerPopupProperty, value);
         }
 
         /// <summary>
@@ -67,7 +72,7 @@ namespace WpfFramework.Behaviors
 
         private static void ShowLayerPopupChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            var behavior = (ContentControlBehavior)d;
+            ContentControlBehavior behavior = (ContentControlBehavior)d;
             behavior.CheckShowLayerPopup();
         }
         /// <summary>
@@ -80,5 +85,17 @@ namespace WpfFramework.Behaviors
                 AssociatedObject.Content = null;
             }
         }
+
+        public object ControlParameter
+        {
+            get => GetValue(ControlParameterProperty);
+            set => SetValue(ControlParameterProperty, value);
+        }
+
+        /// <summary>
+        /// ControlParameter
+        /// </summary>
+        public static readonly DependencyProperty ControlParameterProperty =
+            DependencyProperty.Register(nameof(ControlParameter), typeof(object), typeof(ContentControlBehavior), new PropertyMetadata(null));
     }
 }
