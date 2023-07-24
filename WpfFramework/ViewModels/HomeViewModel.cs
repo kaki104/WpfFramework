@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
+using Microsoft.Extensions.DependencyInjection;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using WpfFramework.Bases;
@@ -27,6 +28,16 @@ namespace WpfFramework.ViewModels
             set { SetProperty(ref _price, value); }
         }
 
+        private IAppContext _appContext;
+        /// <summary>
+        /// AppContext
+        /// </summary>
+        public IAppContext AppContext
+        {
+            get => _appContext;
+            set => SetProperty(ref _appContext, value);
+        }
+
         /// <summary>
         /// Busy 테스트 커맨드
         /// </summary>
@@ -42,7 +53,6 @@ namespace WpfFramework.ViewModels
         public HomeViewModel()
         {
             Title = "Home";
-
             Init();
         }
 
@@ -50,8 +60,9 @@ namespace WpfFramework.ViewModels
         {
             BusyTestCommand = new AsyncRelayCommand(OnBusyTestAsync);
             LayerPopupTestCommand = new RelayCommand(OnLayerPopupTest);
-
             Price = 12345678;
+
+            AppContext = App.Current.Services.GetService<IAppContext>();
         }
 
         private void OnLayerPopupTest()

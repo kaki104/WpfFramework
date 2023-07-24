@@ -82,7 +82,7 @@ namespace WpfFramework.ViewModels
         private void Init()
         {
             //시작 페이지 설정
-            NavigationSource = "Views/HomePage.xaml";
+            NavigationSource = "Views/LoginPage.xaml";
             NavigateCommand = new RelayCommand<string>(OnNavigate);
 
             //네비게이션 메시지 수신 등록

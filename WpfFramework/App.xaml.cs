@@ -2,6 +2,7 @@
 using System;
 using System.Windows;
 using WpfFramework.Controls;
+using WpfFramework.Models;
 using WpfFramework.Services;
 using WpfFramework.ViewModels;
 
@@ -15,13 +16,13 @@ namespace WpfFramework
         public App()
         {
             Services = ConfigureServices();
-            this.InitializeComponent();
+            InitializeComponent();
         }
 
         /// <summary>
         /// Gets the current <see cref="App"/> instance in use
         /// </summary>
-        public new static App Current => (App)Application.Current;
+        public static new App Current => (App)Application.Current;
 
         /// <summary>
         /// Gets the <see cref="IServiceProvider"/> instance to resolve application services.
@@ -33,20 +34,23 @@ namespace WpfFramework
         /// </summary>
         private static IServiceProvider ConfigureServices()
         {
-            var services = new ServiceCollection();
+            ServiceCollection services = new();
 
-            var connectionString = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=Northwind;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
+            string connectionString = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=Northwind;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
 
             //ViewModel 등록
-            services.AddTransient(typeof(MainViewModel));
-            services.AddTransient(typeof(HomeViewModel));
-            services.AddTransient(typeof(CustomerViewModel));
+            _ = services.AddTransient(typeof(MainViewModel));
+            _ = services.AddTransient(typeof(HomeViewModel));
+            _ = services.AddTransient(typeof(CustomerViewModel));
+            _ = services.AddTransient(typeof(LoginPageViewModel));
 
             //Control 등록
-            services.AddTransient(typeof(AboutControl));
+            _ = services.AddTransient(typeof(AboutControl));
 
+            //AppContext 싱글톤 등록
+            _ = services.AddSingleton<IAppContext, Models.AppContext>();
             //IDatabaseService 싱글톤 등록
-            services.AddSingleton<IDatabaseService, SqlService>(obj => new SqlService(connectionString));
+            _ = services.AddSingleton<IDatabaseService, SqlService>(obj => new SqlService(connectionString));
 
             return services.BuildServiceProvider();
         }

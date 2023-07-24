@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using System.Windows;
 using WpfFramework.Interfaces;
 
 namespace WpfFramework.Bases
@@ -42,6 +43,22 @@ namespace WpfFramework.Bases
         /// <param name="navigationEventArgs"></param>
         public virtual void OnNavigating(object sender, object navigationEventArgs)
         {
+        }
+        /// <summary>
+        /// 메시지 박스 출력
+        /// </summary>
+        /// <param name="message"></param>
+        protected void ShowMessage(string message)
+        {
+            MessageBox.Show(message, Title, MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+        /// <summary>
+        /// 경고 메시지 박스 출력
+        /// </summary>
+        /// <param name="message"></param>
+        protected void ShowWarning(string message)
+        {
+            MessageBox.Show(message, Title, MessageBoxButton.OK, MessageBoxImage.Warning);
         }
     }
 }

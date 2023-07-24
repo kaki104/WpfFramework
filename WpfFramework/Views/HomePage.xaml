@@ -2,10 +2,10 @@
     x:Class="WpfFramework.Views.HomePage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="clr-namespace:WpfFramework.Controls;assembly=WpfFramework.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:WpfFramework.Views"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-    xmlns:controls="clr-namespace:WpfFramework.Controls;assembly=WpfFramework.Controls"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Title="HomePage"
     d:DesignHeight="450"
     d:DesignWidth="800"
@@ -13,21 +13,26 @@
 
     <Grid Margin="10">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition />
-            <ColumnDefinition />
+            <ColumnDefinition Width="0.7*" />
+            <ColumnDefinition Width="0.3*" />
         </Grid.ColumnDefinitions>
 
-        <StackPanel>
+        <StackPanel Margin="10">
             <TextBlock FontSize="20" Text="{Binding Title}" />
             <TextBlock Text="{Binding Message}" />
+            <TextBlock FontSize="20" Foreground="Blue">
+                <Run Text="{Binding AppContext.Name}" />
+                (<Run Text="{Binding AppContext.Id}" />
+                )<Run Foreground="Red" Text=" 로그인 성공!" />
+            </TextBlock>
         </StackPanel>
 
         <StackPanel Grid.Column="1">
             <Button Command="{Binding BusyTestCommand}" Content="Busy Test" />
             <Button Command="{Binding LayerPopupTestCommand}" Content="Layer Popup Test" />
-            <TextBox/>
-            <controls:AmountKoreanControl x:Name="akc" Amount="{Binding Price, Mode=TwoWay}"/>
-            <TextBlock Text="{Binding ElementName=akc, Path=Amount}"/>
+            <TextBox />
+            <controls:AmountKoreanControl x:Name="akc" Amount="{Binding Price, Mode=TwoWay}" />
+            <TextBlock Text="{Binding ElementName=akc, Path=Amount}" />
         </StackPanel>
     </Grid>
 </Page>
