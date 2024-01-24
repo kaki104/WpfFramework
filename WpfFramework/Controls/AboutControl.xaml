@@ -12,7 +12,8 @@
         BorderBrush="Blue"
         BorderThickness="1"
         CornerRadius="5">
-        <Grid>
+        <!--  그리드의 백그라운드 컬러를 지정하지 않으면, 배경에 있는 Border를 클릭하기 때문에 추가  -->
+        <Grid Background="White">
             <Grid.RowDefinitions>
                 <RowDefinition />
                 <RowDefinition Height="Auto" />

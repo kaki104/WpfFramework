@@ -2,6 +2,7 @@
 using CommunityToolkit.Mvvm.Messaging;
 using System.Collections.Generic;
 using System.Linq;
+using System.Windows.Controls;
 using System.Windows.Input;
 using WpfFramework.Bases;
 using WpfFramework.Models;
@@ -16,7 +17,7 @@ namespace WpfFramework.ViewModels
         /// <summary>
         /// Busy 목록
         /// </summary>
-        private IList<BusyMessage> _busys = new List<BusyMessage>();
+        private readonly IList<BusyMessage> _busys = new List<BusyMessage>();
 
         private string _navigationSource;
         /// <summary>
@@ -24,8 +25,8 @@ namespace WpfFramework.ViewModels
         /// </summary>
         public string NavigationSource
         {
-            get { return _navigationSource; }
-            set { SetProperty(ref _navigationSource, value); }
+            get => _navigationSource;
+            set => SetProperty(ref _navigationSource, value);
         }
         /// <summary>
         /// 네비게이트 커맨드
@@ -38,8 +39,8 @@ namespace WpfFramework.ViewModels
         /// </summary>
         public bool IsBusy
         {
-            get { return _isBusy; }
-            set { SetProperty(ref _isBusy, value); }
+            get => _isBusy;
+            set => SetProperty(ref _isBusy, value);
         }
 
         private bool _showLayerPopup;
@@ -48,8 +49,8 @@ namespace WpfFramework.ViewModels
         /// </summary>
         public bool ShowLayerPopup
         {
-            get { return _showLayerPopup; }
-            set { SetProperty(ref _showLayerPopup, value); }
+            get => _showLayerPopup;
+            set => SetProperty(ref _showLayerPopup, value);
         }
 
         private string _controlName;
@@ -58,8 +59,8 @@ namespace WpfFramework.ViewModels
         /// </summary>
         public string ControlName
         {
-            get { return _controlName; }
-            set { SetProperty(ref _controlName, value); }
+            get => _controlName;
+            set => SetProperty(ref _controlName, value);
         }
         private object _controlParameter;
         /// <summary>
@@ -67,9 +68,13 @@ namespace WpfFramework.ViewModels
         /// </summary>
         public object ControlParameter
         {
-            get { return _controlParameter; }
-            set { SetProperty(ref _controlParameter, value); }
+            get => _controlParameter;
+            set => SetProperty(ref _controlParameter, value);
         }
+        /// <summary>
+        /// 레이어 팝업 닫기 커맨드
+        /// </summary>
+        public ICommand CloseLayerPopupCommand { get; set; }
         /// <summary>
         /// 생성자
         /// </summary>
@@ -84,13 +89,28 @@ namespace WpfFramework.ViewModels
             //시작 페이지 설정
             NavigationSource = "Views/LoginPage.xaml";
             NavigateCommand = new RelayCommand<string>(OnNavigate);
-
+            CloseLayerPopupCommand = new RelayCommand<object>(OnCloseLayerPopup);
             //네비게이션 메시지 수신 등록
             WeakReferenceMessenger.Default.Register<NavigationMessage>(this, OnNavigationMessage);
             //BusyMessage 수신 등록
             WeakReferenceMessenger.Default.Register<BusyMessage>(this, OnBusyMessage);
             //LayerPopupMessage 수신 등록
             WeakReferenceMessenger.Default.Register<LayerPopupMessage>(this, OnLayerPopupMessage);
+        }
+        /// <summary>
+        /// 레이어 팝업 닫기
+        /// </summary>
+        private void OnCloseLayerPopup(object sender)
+        {
+            //sender는 마우스 다운 이벤트 아규먼트가 들어오고, 클릭한 위치가 보더가 아니거나
+            //보더의 이름이 지정한 이름과 다르면 닫지 않음
+            if (sender is not MouseButtonEventArgs args
+                || args.OriginalSource is not Border border
+                || border.Name != "LayerPopupBorder")
+            {
+                return;
+            }
+            OnLayerPopupMessage(null, new LayerPopupMessage(false));
         }
 
         private void OnLayerPopupMessage(object recipient, LayerPopupMessage message)
@@ -110,7 +130,7 @@ namespace WpfFramework.ViewModels
         {
             if (message.Value)
             {
-                var existBusy = _busys.FirstOrDefault(b => b.BusyId == message.BusyId);
+                BusyMessage existBusy = _busys.FirstOrDefault(b => b.BusyId == message.BusyId);
                 if (existBusy != null)
                 {
                     //이미 추가된 녀석이기 때문에 추가하지 않음
@@ -120,13 +140,13 @@ namespace WpfFramework.ViewModels
             }
             else
             {
-                var existBusy = _busys.FirstOrDefault(b => b.BusyId == message.BusyId);
+                BusyMessage existBusy = _busys.FirstOrDefault(b => b.BusyId == message.BusyId);
                 if (existBusy == null)
                 {
                     //없기 때문에 나감
                     return;
                 }
-                _busys.Remove(existBusy);
+                _ = _busys.Remove(existBusy);
             }
             //_busys에 아이템이 있으면 true, 없으면 false
             IsBusy = _busys.Any();

@@ -52,7 +52,18 @@
                     </Border.Effect>
                 </Border>
             </Border>
-            <Border Background="#66000000" Visibility="{Binding ShowLayerPopup, Converter={StaticResource BoolToVisibilityConverter}}">
+            <!--  클릭한 위치가 LayerPopupBorder인 경우에만 닫기 위해서 이름 추가  -->
+            <Border
+                x:Name="LayerPopupBorder"
+                Background="#66000000"
+                Visibility="{Binding ShowLayerPopup, Converter={StaticResource BoolToVisibilityConverter}}">
+                <b:Interaction.Triggers>
+                    <!--  보더에 마우스 다운 이벤트를 트리거로 걸어서 커맨드 실행  -->
+                    <b:EventTrigger EventName="MouseLeftButtonDown">
+                        <!--  MouseLeftButtonDown 이벤트가 발생할 때 생성된 아규먼트를 CommandParameter로 전달  -->
+                        <b:InvokeCommandAction Command="{Binding CloseLayerPopupCommand}" PassEventArgsToCommand="True" />
+                    </b:EventTrigger>
+                </b:Interaction.Triggers>
                 <Border
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"
