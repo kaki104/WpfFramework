@@ -14,6 +14,7 @@
         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
             <TextBlock FontSize="20" Text="{Binding Title}" />
             <TextBlock Text="{Binding Message}" />
+            <ListBox ItemsSource="{Binding SampleTexts}" />
         </StackPanel>
     </Grid>
 </Page>

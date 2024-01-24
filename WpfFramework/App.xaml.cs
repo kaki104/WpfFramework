@@ -35,8 +35,9 @@ namespace WpfFramework
 
             //ViewModel 등록
             services.AddTransient(typeof(MainViewModel));
-            services.AddTransient(typeof(HomeViewModel));
             services.AddTransient(typeof(CustomerViewModel));
+            //싱글톤 등록
+            services.AddSingleton(typeof(HomeViewModel));
 
             return services.BuildServiceProvider();
         }
