@@ -10,6 +10,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CodeSnipeet", "CodeSnipeet"
 		propp.snippet = propp.snippet
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WpfFramework.Controls", "WpfFramework.Controls\WpfFramework.Controls.csproj", "{F57D250D-67EB-4922-B33B-142B91168382}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -20,6 +22,10 @@ Global
 		{25B60E88-4729-414F-83C2-6A5E5727B43A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{25B60E88-4729-414F-83C2-6A5E5727B43A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{25B60E88-4729-414F-83C2-6A5E5727B43A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F57D250D-67EB-4922-B33B-142B91168382}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F57D250D-67EB-4922-B33B-142B91168382}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F57D250D-67EB-4922-B33B-142B91168382}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F57D250D-67EB-4922-B33B-142B91168382}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
